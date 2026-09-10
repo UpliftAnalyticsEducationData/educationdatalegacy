@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "AcademicPerformanceStaging",
+						"referenceName": "AcademicPerformanceStaging_New",
 						"type": "DataFlowReference"
 					},
 					"compute": {
