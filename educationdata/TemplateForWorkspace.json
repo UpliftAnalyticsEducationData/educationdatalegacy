@@ -20191,6 +20191,171 @@
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/managedVirtualNetworks/default')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/ReportCardAssessmentData_2017_18t02025_26_NewDenominator')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "educationdata-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Academic Performance"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Report_Card_Spring_Assessment_Data_from_2017-18_to_2025-26_NewDenominator.csv",
+						"folderPath": "synapse/workspaces/educationdata/Academic Performance",
+						"fileSystem": "uplifteducationdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "SchoolYear",
+						"type": "String"
+					},
+					{
+						"name": "OrganizationLevel",
+						"type": "String"
+					},
+					{
+						"name": "County",
+						"type": "String"
+					},
+					{
+						"name": "ESDName",
+						"type": "String"
+					},
+					{
+						"name": "ESDOrganizationId",
+						"type": "String"
+					},
+					{
+						"name": "DistrictCode",
+						"type": "String"
+					},
+					{
+						"name": "DistrictName",
+						"type": "String"
+					},
+					{
+						"name": "DistrictOrganizationId",
+						"type": "String"
+					},
+					{
+						"name": "SchoolCode",
+						"type": "String"
+					},
+					{
+						"name": "SchoolName",
+						"type": "String"
+					},
+					{
+						"name": "SchoolOrganizationId",
+						"type": "String"
+					},
+					{
+						"name": "CurrentSchoolType",
+						"type": "String"
+					},
+					{
+						"name": "StudentGroupType",
+						"type": "String"
+					},
+					{
+						"name": "StudentGroup",
+						"type": "String"
+					},
+					{
+						"name": "GradeLevel",
+						"type": "String"
+					},
+					{
+						"name": "Test Administration (group)",
+						"type": "String"
+					},
+					{
+						"name": "TestAdministration",
+						"type": "String"
+					},
+					{
+						"name": "TestSubject",
+						"type": "String"
+					},
+					{
+						"name": "Suppression",
+						"type": "String"
+					},
+					{
+						"name": "Count of Students Expected to Test (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Count of Students Tested (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Count Consistent Grade Level Knowledge And Above (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Percent Consistent Grade Level Knowledge And Above (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Count Foundational Grade-Level Knowledge And Above (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Percent Foundational Grade-Level Knowledge And Above (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "PercentLevel1 (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "PercentLevel2 (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "PercentLevel3 (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "PercentLevel4 (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Percent No Score",
+						"type": "String"
+					},
+					{
+						"name": "Percent_Participation_IncludingPP",
+						"type": "String"
+					},
+					{
+						"name": "Percent Taking Alternative Assessment",
+						"type": "String"
+					},
+					{
+						"name": "DataAsOf",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/educationdata-WorkspaceDefaultStorage')]"
+			]
 		}
 	]
 }
