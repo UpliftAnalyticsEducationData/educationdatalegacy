@@ -1,0 +1,84 @@
+{
+	"name": "AcademicPerformanceStaging_New",
+	"properties": {
+		"folder": {
+			"name": "AcademicPerformance"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ReportCardAssessmentData_2017_18t02025_26_NewDenominator",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "EducationData",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          SchoolYear as string,",
+				"          OrganizationLevel as string,",
+				"          County as string,",
+				"          ESDName as string,",
+				"          ESDOrganizationId as string,",
+				"          DistrictCode as string,",
+				"          DistrictName as string,",
+				"          DistrictOrganizationId as string,",
+				"          SchoolCode as string,",
+				"          SchoolName as string,",
+				"          SchoolOrganizationId as string,",
+				"          CurrentSchoolType as string,",
+				"          StudentGroupType as string,",
+				"          StudentGroup as string,",
+				"          GradeLevel as string,",
+				"          {Test Administration (group)} as string,",
+				"          TestAdministration as string,",
+				"          TestSubject as string,",
+				"          Suppression as string,",
+				"          {Count of Students Expected to Test (including previously passed)} as string,",
+				"          {Count of Students Tested (including previously passed)} as string,",
+				"          {Count Consistent Grade Level Knowledge And Above (including previously passed)} as string,",
+				"          {Percent Consistent Grade Level Knowledge And Above (including previously passed)} as string,",
+				"          {Count Foundational Grade-Level Knowledge And Above (including previously passed)} as string,",
+				"          {Percent Foundational Grade-Level Knowledge And Above (including previously passed)} as string,",
+				"          {PercentLevel1 (including previously passed)} as string,",
+				"          {PercentLevel2 (including previously passed)} as string,",
+				"          {PercentLevel3 (including previously passed)} as string,",
+				"          {PercentLevel4 (including previously passed)} as string,",
+				"          {Percent No Score} as string,",
+				"          Percent_Participation_IncludingPP as string,",
+				"          {Percent Taking Alternative Assessment} as string,",
+				"          DataAsOf as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: 'Staging',",
+				"     tableName: 'AcademicPerformance',",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     deletable: false,",
+				"     upsertable: false,",
+				"     recreate: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+			]
+		}
+	}
+}
