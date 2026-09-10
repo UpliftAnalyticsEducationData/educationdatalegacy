@@ -73,16 +73,12 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataflow": {
-								"referenceName": "AcademicPerformanceStaging",
+								"referenceName": "AcademicPerformanceStaging_New",
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
-									"APCombined": {},
-									"APFall2021": {},
-									"AP2023": {},
-									"AP2024": {},
-									"AP2025Historical": {},
-									"AcademicPerformanceSink": {}
+									"source1": {},
+									"sink1": {}
 								}
 							},
 							"staging": {},
@@ -104,7 +100,8 @@
 				"lastPublishTime": "2026-01-09T00:11:56Z"
 			},
 			"dependsOn": [
-				"[concat(variables('workspaceId'), '/dataflows/AcademicPerformanceStaging')]"
+				"[concat(variables('workspaceId'), '/dataflows/AcademicPerformanceStaging_New')]",
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
 			]
 		},
 		{
