@@ -3511,7 +3511,7 @@
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "SGP transform",
+								"activity": "SGP transform School",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -3538,7 +3538,7 @@
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "SGP transform",
+								"activity": "SGP transform District",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -3588,71 +3588,11 @@
 						}
 					},
 					{
-						"name": "Indicator metricSectorView",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "SGP transform District",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "SGP transform School",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[Indicator].[sp_metricSectorView]"
-						},
-						"linkedServiceName": {
-							"referenceName": "EducationData",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Indicator metricSchoolbySchoolView_copy1",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "SGP transform School",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[Indicator].[sp_metricSchoolbySchoolView]"
-						},
-						"linkedServiceName": {
-							"referenceName": "EducationData",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
 						"name": "WA SGP",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "Indicator metricSectorView",
+								"activity": "SGP transform State",
 								"dependencyConditions": [
 									"Succeeded"
 								]
