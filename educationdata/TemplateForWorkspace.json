@@ -100,8 +100,7 @@
 				"lastPublishTime": "2026-01-09T00:11:56Z"
 			},
 			"dependsOn": [
-				"[concat(variables('workspaceId'), '/dataflows/AcademicPerformanceStaging_New')]",
-				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+				"[concat(variables('workspaceId'), '/dataflows/AcademicPerformanceStaging_New')]"
 			]
 		},
 		{
@@ -5893,6 +5892,171 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/linkedServices/HttpServer1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/ReportCardAssessmentData_2017_18t02025_26_NewDenominator')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "educationdata-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Academic Performance"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Report_Card_Spring_Assessment_Data_from_2017-18_to_2025-26_NewDenominator.csv",
+						"folderPath": "synapse/workspaces/educationdata/Academic Performance",
+						"fileSystem": "uplifteducationdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "SchoolYear",
+						"type": "String"
+					},
+					{
+						"name": "OrganizationLevel",
+						"type": "String"
+					},
+					{
+						"name": "County",
+						"type": "String"
+					},
+					{
+						"name": "ESDName",
+						"type": "String"
+					},
+					{
+						"name": "ESDOrganizationId",
+						"type": "String"
+					},
+					{
+						"name": "DistrictCode",
+						"type": "String"
+					},
+					{
+						"name": "DistrictName",
+						"type": "String"
+					},
+					{
+						"name": "DistrictOrganizationId",
+						"type": "String"
+					},
+					{
+						"name": "SchoolCode",
+						"type": "String"
+					},
+					{
+						"name": "SchoolName",
+						"type": "String"
+					},
+					{
+						"name": "SchoolOrganizationId",
+						"type": "String"
+					},
+					{
+						"name": "CurrentSchoolType",
+						"type": "String"
+					},
+					{
+						"name": "StudentGroupType",
+						"type": "String"
+					},
+					{
+						"name": "StudentGroup",
+						"type": "String"
+					},
+					{
+						"name": "GradeLevel",
+						"type": "String"
+					},
+					{
+						"name": "Test Administration (group)",
+						"type": "String"
+					},
+					{
+						"name": "TestAdministration",
+						"type": "String"
+					},
+					{
+						"name": "TestSubject",
+						"type": "String"
+					},
+					{
+						"name": "Suppression",
+						"type": "String"
+					},
+					{
+						"name": "Count of Students Expected to Test (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Count of Students Tested (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Count Consistent Grade Level Knowledge And Above (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Percent Consistent Grade Level Knowledge And Above (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Count Foundational Grade-Level Knowledge And Above (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Percent Foundational Grade-Level Knowledge And Above (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "PercentLevel1 (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "PercentLevel2 (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "PercentLevel3 (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "PercentLevel4 (including previously passed)",
+						"type": "String"
+					},
+					{
+						"name": "Percent No Score",
+						"type": "String"
+					},
+					{
+						"name": "Percent_Participation_IncludingPP",
+						"type": "String"
+					},
+					{
+						"name": "Percent Taking Alternative Assessment",
+						"type": "String"
+					},
+					{
+						"name": "DataAsOf",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/educationdata-WorkspaceDefaultStorage')]"
 			]
 		},
 		{
@@ -13986,6 +14150,96 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/AcademicPerformanceStaging_New')]",
+			"type": "Microsoft.Synapse/workspaces/dataflows",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"folder": {
+					"name": "AcademicPerformance"
+				},
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ReportCardAssessmentData_2017_18t02025_26_NewDenominator",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"linkedService": {
+								"referenceName": "EducationData",
+								"type": "LinkedServiceReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(output(",
+						"          SchoolYear as string,",
+						"          OrganizationLevel as string,",
+						"          County as string,",
+						"          ESDName as string,",
+						"          ESDOrganizationId as string,",
+						"          DistrictCode as string,",
+						"          DistrictName as string,",
+						"          DistrictOrganizationId as string,",
+						"          SchoolCode as string,",
+						"          SchoolName as string,",
+						"          SchoolOrganizationId as string,",
+						"          CurrentSchoolType as string,",
+						"          StudentGroupType as string,",
+						"          StudentGroup as string,",
+						"          GradeLevel as string,",
+						"          {Test Administration (group)} as string,",
+						"          TestAdministration as string,",
+						"          TestSubject as string,",
+						"          Suppression as string,",
+						"          {Count of Students Expected to Test (including previously passed)} as string,",
+						"          {Count of Students Tested (including previously passed)} as string,",
+						"          {Count Consistent Grade Level Knowledge And Above (including previously passed)} as string,",
+						"          {Percent Consistent Grade Level Knowledge And Above (including previously passed)} as string,",
+						"          {Count Foundational Grade-Level Knowledge And Above (including previously passed)} as string,",
+						"          {Percent Foundational Grade-Level Knowledge And Above (including previously passed)} as string,",
+						"          {PercentLevel1 (including previously passed)} as string,",
+						"          {PercentLevel2 (including previously passed)} as string,",
+						"          {PercentLevel3 (including previously passed)} as string,",
+						"          {PercentLevel4 (including previously passed)} as string,",
+						"          {Percent No Score} as string,",
+						"          Percent_Participation_IncludingPP as string,",
+						"          {Percent Taking Alternative Assessment} as string,",
+						"          DataAsOf as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source1",
+						"source1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table',",
+						"     store: 'sqlserver',",
+						"     schemaName: 'Staging',",
+						"     tableName: 'AcademicPerformance',",
+						"     insertable: true,",
+						"     updateable: false,",
+						"     deletable: false,",
+						"     upsertable: false,",
+						"     recreate: true,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/ReportCardAssessmentData_2017_18t02025_26_NewDenominator')]",
+				"[concat(variables('workspaceId'), '/linkedServices/EducationData')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/AttendanceStaging')]",
 			"type": "Microsoft.Synapse/workspaces/dataflows",
 			"apiVersion": "2019-06-01-preview",
@@ -20190,7 +20444,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/ReportCardAssessmentData_2017_18t02025_26_NewDenominator')]",
+			"name": "[concat(parameters('workspaceName'), '/stagingSGP2026')]",
 			"type": "Microsoft.Synapse/workspaces/datasets",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -20199,15 +20453,15 @@
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "Academic Performance"
+					"name": "SGP"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "Report_Card_Spring_Assessment_Data_from_2017-18_to_2025-26_NewDenominator.csv",
-						"folderPath": "synapse/workspaces/educationdata/Academic Performance",
+						"fileName": "Report_Card_Growth_for_2025-26_20260910.csv",
+						"folderPath": "synapse/workspaces/educationdata/SGP",
 						"fileSystem": "uplifteducationdata"
 					},
 					"columnDelimiter": ",",
@@ -20233,7 +20487,7 @@
 						"type": "String"
 					},
 					{
-						"name": "ESDOrganizationId",
+						"name": "ESDOrganizationID",
 						"type": "String"
 					},
 					{
@@ -20257,7 +20511,7 @@
 						"type": "String"
 					},
 					{
-						"name": "SchoolOrganizationId",
+						"name": "SchoolOrganizationid",
 						"type": "String"
 					},
 					{
@@ -20277,71 +20531,43 @@
 						"type": "String"
 					},
 					{
-						"name": "Test Administration (group)",
+						"name": "Subject",
 						"type": "String"
 					},
 					{
-						"name": "TestAdministration",
+						"name": "DATReason",
 						"type": "String"
 					},
 					{
-						"name": "TestSubject",
+						"name": "MedianSGP",
 						"type": "String"
 					},
 					{
-						"name": "Suppression",
+						"name": "StudentCount",
 						"type": "String"
 					},
 					{
-						"name": "Count of Students Expected to Test (including previously passed)",
+						"name": "NumberLowGrowth",
 						"type": "String"
 					},
 					{
-						"name": "Count of Students Tested (including previously passed)",
+						"name": "NumberTypicalGrowth",
 						"type": "String"
 					},
 					{
-						"name": "Count Consistent Grade Level Knowledge And Above (including previously passed)",
+						"name": "NumberHighGrowth",
 						"type": "String"
 					},
 					{
-						"name": "Percent Consistent Grade Level Knowledge And Above (including previously passed)",
+						"name": "PercentLowGrowth",
 						"type": "String"
 					},
 					{
-						"name": "Count Foundational Grade-Level Knowledge And Above (including previously passed)",
+						"name": "PercentTypicalGrowth",
 						"type": "String"
 					},
 					{
-						"name": "Percent Foundational Grade-Level Knowledge And Above (including previously passed)",
-						"type": "String"
-					},
-					{
-						"name": "PercentLevel1 (including previously passed)",
-						"type": "String"
-					},
-					{
-						"name": "PercentLevel2 (including previously passed)",
-						"type": "String"
-					},
-					{
-						"name": "PercentLevel3 (including previously passed)",
-						"type": "String"
-					},
-					{
-						"name": "PercentLevel4 (including previously passed)",
-						"type": "String"
-					},
-					{
-						"name": "Percent No Score",
-						"type": "String"
-					},
-					{
-						"name": "Percent_Participation_IncludingPP",
-						"type": "String"
-					},
-					{
-						"name": "Percent Taking Alternative Assessment",
+						"name": "PercentHighGrowth",
 						"type": "String"
 					},
 					{
@@ -20352,96 +20578,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/linkedServices/educationdata-WorkspaceDefaultStorage')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/AcademicPerformanceStaging_New')]",
-			"type": "Microsoft.Synapse/workspaces/dataflows",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"folder": {
-					"name": "AcademicPerformance"
-				},
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "ReportCardAssessmentData_2017_18t02025_26_NewDenominator",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"linkedService": {
-								"referenceName": "EducationData",
-								"type": "LinkedServiceReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [],
-					"scriptLines": [
-						"source(output(",
-						"          SchoolYear as string,",
-						"          OrganizationLevel as string,",
-						"          County as string,",
-						"          ESDName as string,",
-						"          ESDOrganizationId as string,",
-						"          DistrictCode as string,",
-						"          DistrictName as string,",
-						"          DistrictOrganizationId as string,",
-						"          SchoolCode as string,",
-						"          SchoolName as string,",
-						"          SchoolOrganizationId as string,",
-						"          CurrentSchoolType as string,",
-						"          StudentGroupType as string,",
-						"          StudentGroup as string,",
-						"          GradeLevel as string,",
-						"          {Test Administration (group)} as string,",
-						"          TestAdministration as string,",
-						"          TestSubject as string,",
-						"          Suppression as string,",
-						"          {Count of Students Expected to Test (including previously passed)} as string,",
-						"          {Count of Students Tested (including previously passed)} as string,",
-						"          {Count Consistent Grade Level Knowledge And Above (including previously passed)} as string,",
-						"          {Percent Consistent Grade Level Knowledge And Above (including previously passed)} as string,",
-						"          {Count Foundational Grade-Level Knowledge And Above (including previously passed)} as string,",
-						"          {Percent Foundational Grade-Level Knowledge And Above (including previously passed)} as string,",
-						"          {PercentLevel1 (including previously passed)} as string,",
-						"          {PercentLevel2 (including previously passed)} as string,",
-						"          {PercentLevel3 (including previously passed)} as string,",
-						"          {PercentLevel4 (including previously passed)} as string,",
-						"          {Percent No Score} as string,",
-						"          Percent_Participation_IncludingPP as string,",
-						"          {Percent Taking Alternative Assessment} as string,",
-						"          DataAsOf as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> source1",
-						"source1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'table',",
-						"     store: 'sqlserver',",
-						"     schemaName: 'Staging',",
-						"     tableName: 'AcademicPerformance',",
-						"     insertable: true,",
-						"     updateable: false,",
-						"     deletable: false,",
-						"     upsertable: false,",
-						"     recreate: true,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/datasets/ReportCardAssessmentData_2017_18t02025_26_NewDenominator')]",
-				"[concat(variables('workspaceId'), '/linkedServices/EducationData')]"
 			]
 		}
 	]
