@@ -3430,6 +3430,7 @@
 									"source1": {},
 									"source2": {},
 									"source3": {},
+									"source4": {},
 									"sink1": {}
 								}
 							},
@@ -13525,6 +13526,143 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/stagingSGP2026')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "educationdata-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SGP"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Report_Card_Growth_for_2025-26_20260910.csv",
+						"folderPath": "synapse/workspaces/educationdata/SGP",
+						"fileSystem": "uplifteducationdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "SchoolYear",
+						"type": "String"
+					},
+					{
+						"name": "OrganizationLevel",
+						"type": "String"
+					},
+					{
+						"name": "County",
+						"type": "String"
+					},
+					{
+						"name": "ESDName",
+						"type": "String"
+					},
+					{
+						"name": "ESDOrganizationID",
+						"type": "String"
+					},
+					{
+						"name": "DistrictCode",
+						"type": "String"
+					},
+					{
+						"name": "DistrictName",
+						"type": "String"
+					},
+					{
+						"name": "DistrictOrganizationId",
+						"type": "String"
+					},
+					{
+						"name": "SchoolCode",
+						"type": "String"
+					},
+					{
+						"name": "SchoolName",
+						"type": "String"
+					},
+					{
+						"name": "SchoolOrganizationid",
+						"type": "String"
+					},
+					{
+						"name": "CurrentSchoolType",
+						"type": "String"
+					},
+					{
+						"name": "StudentGroupType",
+						"type": "String"
+					},
+					{
+						"name": "StudentGroup",
+						"type": "String"
+					},
+					{
+						"name": "GradeLevel",
+						"type": "String"
+					},
+					{
+						"name": "Subject",
+						"type": "String"
+					},
+					{
+						"name": "DATReason",
+						"type": "String"
+					},
+					{
+						"name": "MedianSGP",
+						"type": "String"
+					},
+					{
+						"name": "StudentCount",
+						"type": "String"
+					},
+					{
+						"name": "NumberLowGrowth",
+						"type": "String"
+					},
+					{
+						"name": "NumberTypicalGrowth",
+						"type": "String"
+					},
+					{
+						"name": "NumberHighGrowth",
+						"type": "String"
+					},
+					{
+						"name": "PercentLowGrowth",
+						"type": "String"
+					},
+					{
+						"name": "PercentTypicalGrowth",
+						"type": "String"
+					},
+					{
+						"name": "PercentHighGrowth",
+						"type": "String"
+					},
+					{
+						"name": "DataAsOf",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/educationdata-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/AzureDataLakeStorageGen2')]",
 			"type": "Microsoft.Synapse/workspaces/linkedServices",
 			"apiVersion": "2019-06-01-preview",
@@ -19190,6 +19328,13 @@
 							},
 							"name": "source3",
 							"description": "Import data from stagingSGP2025"
+						},
+						{
+							"dataset": {
+								"referenceName": "stagingSGP2026",
+								"type": "DatasetReference"
+							},
+							"name": "source4"
 						}
 					],
 					"sinks": [
@@ -19219,6 +19364,12 @@
 						},
 						{
 							"name": "union3"
+						},
+						{
+							"name": "select4"
+						},
+						{
+							"name": "union4"
 						}
 					],
 					"scriptLines": [
@@ -19346,6 +19497,37 @@
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false) ~> source3",
+						"source(output(",
+						"          SchoolYear as string,",
+						"          OrganizationLevel as string,",
+						"          County as string,",
+						"          ESDName as string,",
+						"          ESDOrganizationID as string,",
+						"          DistrictCode as string,",
+						"          DistrictName as string,",
+						"          DistrictOrganizationId as string,",
+						"          SchoolCode as string,",
+						"          SchoolName as string,",
+						"          SchoolOrganizationid as string,",
+						"          CurrentSchoolType as string,",
+						"          StudentGroupType as string,",
+						"          StudentGroup as string,",
+						"          GradeLevel as string,",
+						"          Subject as string,",
+						"          DATReason as string,",
+						"          MedianSGP as double,",
+						"          StudentCount as integer,",
+						"          NumberLowGrowth as integer,",
+						"          NumberTypicalGrowth as integer,",
+						"          NumberHighGrowth as integer,",
+						"          PercentLowGrowth as double,",
+						"          PercentTypicalGrowth as double,",
+						"          PercentHighGrowth as double,",
+						"          DataAsOf as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source4",
 						"source1 select(mapColumn(",
 						"          SchoolYear,",
 						"          OrganizationLevel,",
@@ -19439,7 +19621,38 @@
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true) ~> select3",
 						"union2, select3 union(byName: true)~> union3",
-						"union3 sink(allowSchemaDrift: true,",
+						"source4 select(mapColumn(",
+						"          SchoolYear,",
+						"          OrganizationLevel,",
+						"          County,",
+						"          ESDName,",
+						"          ESDOrganizationID,",
+						"          DistrictCode,",
+						"          DistrictName,",
+						"          DistrictOrganizationId,",
+						"          SchoolCode,",
+						"          SchoolName,",
+						"          SchoolOrganizationid,",
+						"          CurrentSchoolType,",
+						"          StudentGroupType,",
+						"          StudentGroup,",
+						"          GradeLevel,",
+						"          Subject,",
+						"          Suppression = DATReason,",
+						"          MedianSGP,",
+						"          StudentCount,",
+						"          NumberLowGrowth,",
+						"          NumberTypicalGrowth,",
+						"          NumberHighGrowth,",
+						"          PercentLowGrowth,",
+						"          PercentTypicalGrowth,",
+						"          PercentHighGrowth,",
+						"          DataAsOf",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select4",
+						"union3, select4 union(byName: true)~> union4",
+						"union4 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'table',",
 						"     store: 'sqlserver',",
@@ -19463,6 +19676,7 @@
 				"[concat(variables('workspaceId'), '/datasets/StagingSGP2023')]",
 				"[concat(variables('workspaceId'), '/datasets/stagingSGP2024')]",
 				"[concat(variables('workspaceId'), '/datasets/stagingSGP2025')]",
+				"[concat(variables('workspaceId'), '/datasets/stagingSGP2026')]",
 				"[concat(variables('workspaceId'), '/linkedServices/EducationData')]"
 			]
 		},
@@ -20441,143 +20655,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/managedVirtualNetworks/default')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/stagingSGP2026')]",
-			"type": "Microsoft.Synapse/workspaces/datasets",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "educationdata-WorkspaceDefaultStorage",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "SGP"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "Report_Card_Growth_for_2025-26_20260910.csv",
-						"folderPath": "synapse/workspaces/educationdata/SGP",
-						"fileSystem": "uplifteducationdata"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "SchoolYear",
-						"type": "String"
-					},
-					{
-						"name": "OrganizationLevel",
-						"type": "String"
-					},
-					{
-						"name": "County",
-						"type": "String"
-					},
-					{
-						"name": "ESDName",
-						"type": "String"
-					},
-					{
-						"name": "ESDOrganizationID",
-						"type": "String"
-					},
-					{
-						"name": "DistrictCode",
-						"type": "String"
-					},
-					{
-						"name": "DistrictName",
-						"type": "String"
-					},
-					{
-						"name": "DistrictOrganizationId",
-						"type": "String"
-					},
-					{
-						"name": "SchoolCode",
-						"type": "String"
-					},
-					{
-						"name": "SchoolName",
-						"type": "String"
-					},
-					{
-						"name": "SchoolOrganizationid",
-						"type": "String"
-					},
-					{
-						"name": "CurrentSchoolType",
-						"type": "String"
-					},
-					{
-						"name": "StudentGroupType",
-						"type": "String"
-					},
-					{
-						"name": "StudentGroup",
-						"type": "String"
-					},
-					{
-						"name": "GradeLevel",
-						"type": "String"
-					},
-					{
-						"name": "Subject",
-						"type": "String"
-					},
-					{
-						"name": "DATReason",
-						"type": "String"
-					},
-					{
-						"name": "MedianSGP",
-						"type": "String"
-					},
-					{
-						"name": "StudentCount",
-						"type": "String"
-					},
-					{
-						"name": "NumberLowGrowth",
-						"type": "String"
-					},
-					{
-						"name": "NumberTypicalGrowth",
-						"type": "String"
-					},
-					{
-						"name": "NumberHighGrowth",
-						"type": "String"
-					},
-					{
-						"name": "PercentLowGrowth",
-						"type": "String"
-					},
-					{
-						"name": "PercentTypicalGrowth",
-						"type": "String"
-					},
-					{
-						"name": "PercentHighGrowth",
-						"type": "String"
-					},
-					{
-						"name": "DataAsOf",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/linkedServices/educationdata-WorkspaceDefaultStorage')]"
 			]
 		}
 	]
