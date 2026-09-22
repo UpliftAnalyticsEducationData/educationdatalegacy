@@ -222,7 +222,7 @@
 				"          GradeLevel as string,",
 				"          Subject as string,",
 				"          DATReason as string,",
-				"          MedianSGP as string,",
+				"          MedianSGP as double,",
 				"          StudentCount as integer,",
 				"          NumberLowGrowth as integer,",
 				"          NumberTypicalGrowth as integer,",
