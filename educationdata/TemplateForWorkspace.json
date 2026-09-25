@@ -779,7 +779,7 @@
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "Enrollment Transform",
+								"activity": "Enrollment Transform School",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -806,7 +806,7 @@
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "Enrollment Transform",
+								"activity": "Enrollment Transform  District",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -856,11 +856,11 @@
 						}
 					},
 					{
-						"name": "Scorecard Enrollment To Target",
+						"name": "WA OSPI Enrollment",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "Enrollment Transform School",
+								"activity": "Enrollment Transform State",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -875,160 +875,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[scorecard].[sp_EnrollmentToTarget]"
-						},
-						"linkedServiceName": {
-							"referenceName": "EducationData",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "transform AcademicPerformanceSchoolEnrollment",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "Enrollment Transform School",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[transform].[sp_AcademicPerformanceSchoolEnrollment]"
-						},
-						"linkedServiceName": {
-							"referenceName": "EducationData",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Indicator metricSchoolbySchoolView",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "scorecard EnrollmentToTargetSector",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[Indicator].[sp_metricSchoolbySchoolView]"
-						},
-						"linkedServiceName": {
-							"referenceName": "EducationData",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "scorecard EnrollmentCharterDistrict",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "Enrollment Transform School",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Enrollment Transform  District",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[Indicator].[sp_metricSectorView]"
-						},
-						"linkedServiceName": {
-							"referenceName": "EducationData",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Indicator metricSectorView_copy1",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "scorecard EnrollmentToTargetSector",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[Indicator].[sp_metricSectorView]"
-						},
-						"linkedServiceName": {
-							"referenceName": "EducationData",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "scorecard EnrollmentToTargetSector",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "scorecard EnrollmentCharterDistrict",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Scorecard Enrollment To Target",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "transform AcademicPerformanceSchoolEnrollment",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[Indicator].[sp_metricEnrollmentTargetSector]"
+							"storedProcedureName": "[wa].[EnrollmentOSPI_WA]"
 						},
 						"linkedServiceName": {
 							"referenceName": "EducationData",
