@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Report_Card_Enrollment_from_2014-15_to_Current_Year_20240122.csv",
+				"fileName": "Report_Card_Enrollment_from_2014-15_to_Current_Year.csv",
 				"folderPath": "synapse/workspaces/educationdata/Enrollment",
 				"fileSystem": "uplifteducationdata"
 			},
