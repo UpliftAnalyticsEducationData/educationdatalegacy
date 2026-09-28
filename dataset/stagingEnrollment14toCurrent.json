@@ -1,5 +1,5 @@
 {
-	"name": "stagingEnrollment14_24",
+	"name": "stagingEnrollment14toCurrent",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "educationdata-WorkspaceDefaultStorage",
