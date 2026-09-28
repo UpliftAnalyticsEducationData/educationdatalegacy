@@ -12,7 +12,7 @@
 						"referenceName": "stagingEnrollment14toCurrent",
 						"type": "DatasetReference"
 					},
-					"name": "Enrollment14to24"
+					"name": "Enrollment14toCurrent"
 				}
 			],
 			"sinks": [
@@ -79,8 +79,8 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> Enrollment14to24",
-				"Enrollment14to24 select(mapColumn(",
+				"     ignoreNoFilesFound: false) ~> Enrollment14toCurrent",
+				"Enrollment14toCurrent select(mapColumn(",
 				"          SchoolYear,",
 				"          OrganizationLevel,",
 				"          County,",
