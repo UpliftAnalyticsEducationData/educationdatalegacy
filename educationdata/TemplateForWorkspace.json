@@ -698,7 +698,7 @@
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
-									"Enrollment14to24": {},
+									"Enrollment14toCurrent": {},
 									"sink1": {}
 								}
 							},
@@ -8180,7 +8180,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/stagingEnrollment14_24')]",
+			"name": "[concat(parameters('workspaceName'), '/stagingEnrollment14toCurrent')]",
 			"type": "Microsoft.Synapse/workspaces/datasets",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -14598,10 +14598,10 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "stagingEnrollment14_24",
+								"referenceName": "stagingEnrollment14toCurrent",
 								"type": "DatasetReference"
 							},
-							"name": "Enrollment14to24"
+							"name": "Enrollment14toCurrent"
 						}
 					],
 					"sinks": [
@@ -14668,8 +14668,8 @@
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> Enrollment14to24",
-						"Enrollment14to24 select(mapColumn(",
+						"     ignoreNoFilesFound: false) ~> Enrollment14toCurrent",
+						"Enrollment14toCurrent select(mapColumn(",
 						"          SchoolYear,",
 						"          OrganizationLevel,",
 						"          County,",
@@ -14736,7 +14736,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('workspaceId'), '/datasets/stagingEnrollment14_24')]",
+				"[concat(variables('workspaceId'), '/datasets/stagingEnrollment14toCurrent')]",
 				"[concat(variables('workspaceId'), '/linkedServices/EducationData')]"
 			]
 		},
