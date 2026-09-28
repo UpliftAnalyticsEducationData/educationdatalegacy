@@ -794,7 +794,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[transform].[sp_EnrollmentDistrict]"
+							"storedProcedureName": "[transform].[sp_EnrollmentDistrictfromTransformEnrollment]"
 						},
 						"linkedServiceName": {
 							"referenceName": "EducationData",
@@ -821,7 +821,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[transform].[sp_EnrollmentState]"
+							"storedProcedureName": "[transform].[sp_EnrollmentStatefromTransformEnrollment]"
 						},
 						"linkedServiceName": {
 							"referenceName": "EducationData",
@@ -848,7 +848,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[transform].[sp_EnrollmentSchool]"
+							"storedProcedureName": "[transform].[sp_EnrollmentSchoolfromTransformEnrollment]"
 						},
 						"linkedServiceName": {
 							"referenceName": "EducationData",
