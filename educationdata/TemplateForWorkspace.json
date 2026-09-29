@@ -721,7 +721,8 @@
 				"lastPublishTime": "2026-01-09T00:12:08Z"
 			},
 			"dependsOn": [
-				"[concat(variables('workspaceId'), '/dataflows/EnrollmentStaging')]"
+				"[concat(variables('workspaceId'), '/dataflows/EnrollmentStaging')]",
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
 			]
 		},
 		{
@@ -14636,17 +14637,17 @@
 						"          {All Students} as string,",
 						"          Female as string,",
 						"          Male as string,",
-						"          {Gender X} as boolean,",
-						"          {American Indian/Alaskan Native} as short,",
+						"          {Gender X} as string,",
+						"          {American Indian/Alaskan Native} as string,",
 						"          Asian as string,",
 						"          {Black/African American} as string,",
 						"          {Hispanic/Latino of any race(s)} as string,",
-						"          {Native Hawaiian/Pacific Islander} as short,",
+						"          {Native Hawaiian/Pacific Islander} as string,",
 						"          {Two or More Races} as string,",
 						"          White as string,",
 						"          {English Language Learners} as string,",
 						"          {Non-English Language Learners} as string,",
-						"          {Foster Care} as short,",
+						"          {Foster Care} as string,",
 						"          {Non-Foster Care} as string,",
 						"          {Highly Capable} as string,",
 						"          {Non-Highly Capable} as string,",
@@ -14656,7 +14657,7 @@
 						"          {Non-Low Income} as string,",
 						"          Migrant as string,",
 						"          {Non-Migrant} as string,",
-						"          {Military Parent} as boolean,",
+						"          {Military Parent} as string,",
 						"          {Non-Military Parent} as string,",
 						"          Mobile as string,",
 						"          {Non-Mobile} as string,",
